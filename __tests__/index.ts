@@ -10,7 +10,12 @@ describe('test', () => {
         // console.log(foo(1, 2));
         expect(foo(1, 2)).toBe(3);
     })
-    test('download', async () => {
+    test('encode', async () => {
+        const str = '我爱中国';
+        console.log(encodeURI(str));
+        console.log(encodeURIComponent(str));
+        
+        
         // const obj = {
         //     name: 'test.mp3',
         //     url: 'http://cdn.vistopia.com.cn/1562159898422.mp3'
