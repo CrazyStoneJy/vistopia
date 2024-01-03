@@ -1,8 +1,9 @@
 // import { request } from "./request";
 
+import { fetchAudios } from "./api";
+
 function main() {
-    // request();
-    console.log("a");
+    fetchAudios();
 }
 
 main();
