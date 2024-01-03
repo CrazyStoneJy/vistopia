@@ -1,0 +1,26 @@
+{
+  "name": "vistopia",
+  "version": "1.0.0",
+  "description": "vistopia command line",
+  "scripts": {
+    "test": "jest",
+    "build": "rm -rf ./build/ ; ./node_modules/typescript/bin/tsc -p ./tsconfig.json",
+    "start": "node ./build/bin/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/CrazyStoneJy/vistopia.git"
+  },
+  "keywords": [
+    "vispotia"
+  ],
+  "author": "crazystone",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CrazyStoneJy/vistopia/issues"
+  },
+  "homepage": "https://github.com/CrazyStoneJy/vistopia#readme",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "module": "system",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "outFile": "./build/bin/index.js",
+        "sourceMap": true
+    },
+    "include": [
+        "./src/**/*"
+    ],
+    "exclude": [
+        "**/*.spec.ts"
+    ]
+}
