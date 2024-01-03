@@ -4,7 +4,7 @@
   "description": "vistopia command line",
   "scripts": {
     "test": "jest",
-    "build": "rm -rf ./build/ ; ./node_modules/typescript/bin/tsc -p ./tsconfig.json",
+    "build": "zsh ./scripts/build.zsh",
     "start": "node ./build/index.js"
   },
   "repository": {

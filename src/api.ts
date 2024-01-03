@@ -43,6 +43,24 @@ async function fetchAudios() {
     }
 }
 
+
+// search
+// https://api.vistopia.com.cn/api/v1/search/search-new?page=1&keyword=%E8%91%9B%E5%85%86%E5%85%89
+
+//sig 277c9b46f0d18fe919e3ccb4b9574540
+
+
+// sms-code
+// url https://api.vistopia.com.cn/api/v1/service/sms-code
+// method: post
+// body json : phone=13753251592&type=login_or_register&area_code=86
+
+
+// auth
+// url: https://api.vistopia.com.cn/api/v1/auth/post-register-login?phone=13753251592&code=780632&area_code=86
+// method: post
+// body json: {}
+
 export {
     fetchAudios
 }

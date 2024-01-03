@@ -24,9 +24,9 @@ function writeArrayBuffer(path: string, data: ArrayBuffer) {
     // check file exists whether or not.
     const isExists = existsSync(path);
     if (isExists) {
-        writeFileSync(path, data, { encoding: 'utf-8', flag: 'w' });
+        writeFileSync(path, new Uint8Array(data), { encoding: 'utf-8', flag: 'w' });
     } else {
-        appendFileSync(path, data, { encoding: 'utf-8', flag: 'w' });
+        appendFileSync(path, new Uint8Array(data), { encoding: 'utf-8', flag: 'w' });
     }
 }
 
