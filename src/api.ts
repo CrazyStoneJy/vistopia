@@ -3,7 +3,7 @@ import { write, writeArrayBuffer } from "./fs";
 import { log } from "./logs";
 import fetcher from "./net";
 
-type AudioUrl = {
+type EpisodeUrl = {
     title: string,
     url: string
 }
@@ -16,7 +16,7 @@ type Collection = {
 type Episode = Collection;
 
 
-async function fetchEpisodes(collection_id: Collection['id']): Promise<Array<Episode> | null> {
+async function findEpisodes(collection_id: Collection['id']): Promise<Array<Episode> | null> {
     const url = `https://api.vistopia.com.cn/api/v1/content/article_list?content_id=${collection_id}&count=100&sort=0&reverse=0&since_id=473994&is_all_data=1`;
     const res = await fetcher.get(url);
     // @ts-ignore
@@ -35,7 +35,7 @@ async function fetchEpisodes(collection_id: Collection['id']): Promise<Array<Epi
     return null;
 }
 
-async function fetchOneEpisode(episode_id: Episode['id']): Promise<AudioUrl | null> {
+async function findEpisodeUrl(episode_id: Episode['id']): Promise<EpisodeUrl | null> {
     const url = `https://api.vistopia.com.cn/api/v1/reader/section-detail?article_id=${episode_id}`;
     const res = await fetcher.get(url);
     // @ts-ignore
@@ -43,33 +43,29 @@ async function fetchOneEpisode(episode_id: Episode['id']): Promise<AudioUrl | nu
         // @ts-ignore
         const part = res?.data?.part[0];
         const { title, optional_media_key_full_url } = part;
-        const AudioUrl = {
+        const EpisodeUrl = {
             title,
             url: optional_media_key_full_url
         }
-        console.log(`AudioUrl: ${JSON.stringify(AudioUrl)}`);
-        return AudioUrl;
+        console.log(`EpisodeUrl: ${JSON.stringify(EpisodeUrl)}`);
+        return EpisodeUrl;
     }
     return null;
 }
 
-async function downloadAudio(audioUrl: AudioUrl) {
-    const { title, url } = audioUrl || {};
+async function downloadEpisodeByUrl(EpisodeUrl: EpisodeUrl) {
+    const { title, url } = EpisodeUrl || {};
     const res = await fetcher.download(url);
     writeArrayBuffer(`./resources/${title}.mp3`, res);
 }
 
-async function fetchAudiosFromCollection(collection_id: Collection['id']) {
-    const episodes = await fetchEpisodes(collection_id);
+async function downloadEpisodes(collection_id: Collection['id']) {
+    const episodes = await findEpisodes(collection_id);
     if (episodes) {
         const len = episodes.length;
         let index = 0;
         for (let episode of episodes) {
-            const audioUrl: AudioUrl = await fetchOneEpisode(episode.id);
-            const { title } = audioUrl || {};
-            console.log(`start download ${title}`);
-            await downloadAudio(audioUrl);
-            console.log(`${title}.mp3 download successfully.`);
+            await downloadEpisode(episode.id);
             ++index;
         }
         if (len === len) {
@@ -78,10 +74,18 @@ async function fetchAudiosFromCollection(collection_id: Collection['id']) {
             console.log(`download occur errors, success count: ${index}, failure count: ${len - index} please run again.`);
         }
         // episodes.forEach(async (episode_id: string) => {
-        //     const audioUrl: AudioUrl = await requestEpisode(episode_id);
-        //     await downloadAudio(audioUrl);
+        //     const EpisodeUrl: EpisodeUrl = await requestEpisode(episode_id);
+        //     await downloadEpisode(EpisodeUrl);
         // });
     }
+}
+
+async function downloadEpisode(episode_id: Episode['id']) {
+    const EpisodeUrl: EpisodeUrl = await findEpisodeUrl(episode_id);
+    const { title } = EpisodeUrl || {};
+    console.log(`start download ${title}`);
+    await downloadEpisodeByUrl(EpisodeUrl);
+    console.log(`${title}.mp3 download successfully.`);
 }
 
 async function search(keyword: string, page: number = 1): Promise<Collection[] | null> {
@@ -140,7 +144,8 @@ async function searchByRecusively(keyword: string, page: number, result: Collect
 
 
 export {
-    fetchAudiosFromCollection,
+    downloadEpisodes,
+    downloadEpisode,
     search,
-    fetchEpisodes,
+    findEpisodes,
 }

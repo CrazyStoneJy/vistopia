@@ -2,7 +2,7 @@
 
 import { Command } from 'commander';
 import { exec } from 'child_process';
-import { fetchAudiosFromCollection, fetchEpisodes, search } from '../api';
+import { downloadEpisode, downloadEpisodes, findEpisodes, search } from '../api';
 import { log } from '../logs';
 
 const program = new Command();
@@ -23,13 +23,19 @@ program.command('search')
 program.command('find')
     .description('find all episode by collection id.')
     .action((options) => {
-        fetchEpisodes(getLastArg());
+        findEpisodes(getLastArg());
     });
 
 program.command('download')
     .description('download audio collection by collection id.')
+    .option('-e, --episode    <episode_id>')
     .action((optoins) => {
-        fetchAudiosFromCollection(getLastArg());
+        // download one episode
+        if (optoins.episode) {
+            downloadEpisode(getLastArg());
+            return;
+        }
+        downloadEpisodes(getLastArg());
     });
 
 program.command('push')
