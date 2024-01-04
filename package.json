@@ -1,6 +1,6 @@
 {
   "name": "vistopia",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "vistopia command line",
   "bin": {
     "vistopia": "./dist/bin/cli.js"

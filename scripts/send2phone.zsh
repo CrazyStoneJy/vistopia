@@ -14,7 +14,7 @@ do
     if [[ -e $file ]]; 
     then
         echo "$file" 
-        adb push $file /sdcard/
+        adb push $file /sdcard/vistopia
     fi
 done
 
