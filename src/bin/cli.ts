@@ -38,7 +38,8 @@ program.command('push')
         exec('zsh ./scripts/send2phone.zsh', (err, stdout, stderr) => {
             if (err) {
                 // @ts-ignore
-                throw new Error(err?.code);
+                log(err);
+                throw new Error('occur error');
             }
             log('shell execute success.');
             log(`stdout: ${stdout}`);

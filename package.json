@@ -2,10 +2,12 @@
   "name": "vistopia",
   "version": "1.0.0",
   "description": "vistopia command line",
+  "bin": {
+    "vistopia": "./dist/bin/cli.js"
+  },
   "scripts": {
     "test": "jest",
-    "build": "zsh ./scripts/build.zsh",
-    "start": "node ./build/bin/cli.js "
+    "build": "zsh ./scripts/build.zsh"
   },
   "repository": {
     "type": "git",
