@@ -1,3 +1,5 @@
+import { logN } from "./logs";
+
 export type JSONValue = null | boolean | number | string | JSONValue[] | { [key: string]: JSONValue }
 
 interface IRequest {
@@ -46,6 +48,8 @@ class Fetcher implements IRequest {
             }
         }
         config = { ...config, ...customConfig };
+        // logN('config: ', config);
+        logN('url:', url);
         const response = await fetch(url);
         return response.json();
     }
