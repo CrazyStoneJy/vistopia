@@ -1,10 +1,11 @@
 {
   "name": "vistopia",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "vistopia command line",
   "bin": {
     "vistopia": "./bin/vistopia.mjs"
   },
+  "main": "./bin/vistopia.mjs",
   "scripts": {
     "test": "jest",
     "prepublishOnly": "npm run build",
