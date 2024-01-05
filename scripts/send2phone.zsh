@@ -1,7 +1,6 @@
 #! /bin/zsh 
 set -e
 
-
 # todo omit blank, sepecial character
 
 # check adb
@@ -14,7 +13,7 @@ do
     if [[ -e $file ]]; 
     then
         echo "$file" 
-        adb push $file /sdcard/vistopia
+        adb push $file $1
     fi
 done
 

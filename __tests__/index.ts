@@ -1,5 +1,3 @@
-import fetcher from '../src/net'
-import { writeArrayBuffer } from '../src/fs'
 
 function foo(a: number, b: number): number {
     return a + b;
@@ -12,15 +10,6 @@ describe('test', () => {
     })
     test('encode', async () => {
         const str = '我爱中国';
-        console.log(encodeURI(str));
-        console.log(encodeURIComponent(str));
-        
-        
-        // const obj = {
-        //     name: 'test.mp3',
-        //     url: 'http://cdn.vistopia.com.cn/1562159898422.mp3'
-        // }
-        // const res = await fetcher.download(obj.url);
-        // writeArrayBuffer(`./resource/${obj.name}`, res)
+        expect(encodeURI(str)).toBe(encodeURIComponent(str))
     })
 })

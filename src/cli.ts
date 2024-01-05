@@ -2,14 +2,14 @@
 
 import { Command } from 'commander';
 import { exec } from 'child_process';
-import { downloadEpisode, downloadEpisodes, findEpisodes, search } from '../api';
-import { log } from '../logs';
+import { downloadEpisode, downloadEpisodes, findEpisodes, search } from './api';
+import { log } from './logs';
 
 const program = new Command();
 
 program.name('vispotia')
     .description('CLI to fetch vistopia audio utilities')
-    .version('0.0.1');
+    .version(`${require('../package.json').version}`, '-v --version');
     
 program.command('search')
     .description('search collection id by keyword')
@@ -28,7 +28,7 @@ program.command('find')
 
 program.command('download')
     .description('download audio collection by collection id.')
-    .option('-e, --episode    <episode_id>')
+    .option('-e, --episode <episode_id>')
     .action((optoins) => {
         // download one episode
         if (optoins.episode) {
@@ -40,8 +40,12 @@ program.command('download')
 
 program.command('push')
     .description('push audios in resources folder to android sdcard')
+    .option('-d, --destination <sdcard floder of android phone>')
     .action((optoins) => {
-        exec('zsh ./scripts/send2phone.zsh', (err, stdout, stderr) => {
+        const dir_path = getLastArg();
+        const shell = `zsh ./scripts/send2phone.zsh ${dir_path}`;
+        log(`shell script: ${shell}`);
+        exec(shell, (err, stdout, stderr) => {
             if (err) {
                 // @ts-ignore
                 log(err);

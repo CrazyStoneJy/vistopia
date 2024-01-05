@@ -1,9 +1,9 @@
 {
   "name": "vistopia",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "vistopia command line",
   "bin": {
-    "vistopia": "./dist/bin/cli.js"
+    "vistopia": "./bin/vistopia.mjs"
   },
   "scripts": {
     "test": "jest",
