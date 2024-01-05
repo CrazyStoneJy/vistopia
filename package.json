@@ -7,6 +7,7 @@
   },
   "scripts": {
     "test": "jest",
+    "prepublishOnly": "npm run build",
     "build": "zsh ./scripts/build.zsh"
   },
   "repository": {
