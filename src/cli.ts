@@ -13,17 +13,17 @@ program.name('vispotia')
     
 program.command('search')
     .description('search collection id by keyword')
-    .option('-k, --keyword', 'show start info')
-    .action((options) => {
-        console.log(options);
-        console.log('keyword:', getLastArg());
-        search(getLastArg());
+    .argument('<keyword>', 'show start info')
+    .action((keyword, options) => {
+        console.log('keyword:', keyword);
+        search(keyword);
     });
 
 program.command('find')
+    .argument('<collection_id>', 'collection id')
     .description('find all episode by collection id.')
-    .action((options) => {
-        findEpisodes(getLastArg());
+    .action((collection_id, options) => {
+        findEpisodes(collection_id);
     });
 
 program.command('download')
@@ -47,13 +47,13 @@ program.command('download')
 
 program.command('push')
     .description('push audios in resources folder to android sdcard')
-    .action((optoins) => {
+    .argument('<directory of resources>', 'directory of resources')
+    .argument('<directory of phone>', 'directory of android phone that you wan to output.')
+    .action((dir_res, dir_phone, optoins) => {
         if (program.args.length < 2) {
             log('can not less two arguments.');
             return;
         }
-        const dir_res = program.args[program.args.length - 2];
-        const dir_phone = getLastArg();
         const shell = `zsh ./scripts/send2phone.zsh ${dir_res} ${dir_phone}`;
         log(`shell script: ${shell}`);
         exec(shell, (err, stdout, stderr) => {
