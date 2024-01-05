@@ -1,15 +1,26 @@
 ## 看理想音频抓取工具
 
-### 环境
+## 直接安装cli使用
+>$ npm i vistopia
+
+## 下载源码使用
+
+#### clone代码
+>$ git clone git@github.com:CrazyStoneJy/vistopia.git
+
+#### 安装依赖
 >$ nmp install
 
-### 编译  
+#### 编译  
 >$ npm run build
 
-### 使用
+#### 使用
 >$ npm link  
 
    ![npm link success](./img/img_pm_link.jpg)
+
+
+## 命令手册
 
 **搜索**
 >$ vistopia search <keyword>
