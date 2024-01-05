@@ -6,6 +6,10 @@
     "vistopia": "./bin/vistopia.mjs"
   },
   "main": "./bin/vistopia.mjs",
+  "files": [
+    "bin",
+    "dist"
+  ],
   "scripts": {
     "test": "jest",
     "prepublishOnly": "npm run build",
