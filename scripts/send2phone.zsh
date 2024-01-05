@@ -6,14 +6,14 @@ set -e
 # check adb
 adb devices
 
-cd resources
+cd $1
 
 for file in ./*.mp3
 do
     if [[ -e $file ]]; 
     then
         echo "$file" 
-        adb push $file $1
+        adb push $file $2
     fi
 done
 

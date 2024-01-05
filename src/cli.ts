@@ -2,7 +2,7 @@
 
 import { Command } from 'commander';
 import { exec } from 'child_process';
-import { downloadEpisode, downloadEpisodes, findEpisodes, search } from './api';
+import { DEFAULT_RESOURCES_DIRCTORY, downloadEpisode, downloadEpisodes, findEpisodes, search } from './api';
 import { log } from './logs';
 
 const program = new Command();
@@ -29,31 +29,41 @@ program.command('find')
 program.command('download')
     .description('download audio collection by collection id.')
     .option('-e, --episode <episode_id>')
-    .action((optoins) => {
+    .option('-o --output <output directory>')
+    .action((options) => {
         // download one episode
-        if (optoins.episode) {
-            downloadEpisode(getLastArg());
+        const { output = DEFAULT_RESOURCES_DIRCTORY, episode } = options;
+        if (output) {
+            // output_dir = ;
+            log('output: ', output);
+        }
+        if (episode) {
+            log('episode: ', episode);
+            downloadEpisode(episode, output);
             return;
         }
-        downloadEpisodes(getLastArg());
+        downloadEpisodes(getLastArg(), output);
     });
 
 program.command('push')
     .description('push audios in resources folder to android sdcard')
-    .option('-d, --destination <sdcard floder of android phone>')
     .action((optoins) => {
-        const dir_path = getLastArg();
-        const shell = `zsh ./scripts/send2phone.zsh ${dir_path}`;
+        if (program.args.length < 2) {
+            log('can not less two arguments.');
+            return;
+        }
+        const dir_res = program.args[program.args.length - 2];
+        const dir_phone = getLastArg();
+        const shell = `zsh ./scripts/send2phone.zsh ${dir_res} ${dir_phone}`;
         log(`shell script: ${shell}`);
         exec(shell, (err, stdout, stderr) => {
             if (err) {
                 // @ts-ignore
-                log(err);
+                log(`stderr: ${stderr}`);
                 throw new Error('occur error');
             }
             log('shell execute success.');
             log(`stdout: ${stdout}`);
-            log(`stderr: ${stderr}`);
         });
     });
 

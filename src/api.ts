@@ -15,6 +15,7 @@ type Collection = {
 
 type Episode = Collection;
 
+export const DEFAULT_RESOURCES_DIRCTORY = "./resources";
 
 async function findEpisodes(collection_id: Collection['id']): Promise<Array<Episode> | null> {
     const url = `https://api.vistopia.com.cn/api/v1/content/article_list?content_id=${collection_id}&count=100&sort=0&reverse=0&since_id=473994&is_all_data=1`;
@@ -53,41 +54,39 @@ async function findEpisodeUrl(episode_id: Episode['id']): Promise<EpisodeUrl | n
     return null;
 }
 
-async function downloadEpisodeByUrl(EpisodeUrl: EpisodeUrl) {
-    const { title, url } = EpisodeUrl || {};
-    const res = await fetcher.download(url);
-    writeArrayBuffer(`./resources/${title}.mp3`, res);
-}
-
-async function downloadEpisodes(collection_id: Collection['id']) {
+// download section
+async function downloadEpisodes(collection_id: Collection['id'], output_dir: string = DEFAULT_RESOURCES_DIRCTORY) {
     const episodes = await findEpisodes(collection_id);
     if (episodes) {
         const len = episodes.length;
         let index = 0;
         for (let episode of episodes) {
-            await downloadEpisode(episode.id);
+            await downloadEpisode(episode.id, output_dir);
             ++index;
         }
-        if (len === len) {
+        if (len === index) {
             console.log(`all episodes download finished.`);
         } else {
             console.log(`download occur errors, success count: ${index}, failure count: ${len - index} please run again.`);
         }
-        // episodes.forEach(async (episode_id: string) => {
-        //     const EpisodeUrl: EpisodeUrl = await requestEpisode(episode_id);
-        //     await downloadEpisode(EpisodeUrl);
-        // });
     }
 }
 
-async function downloadEpisode(episode_id: Episode['id']) {
+async function downloadEpisode(episode_id: Episode['id'], output_dir: string = DEFAULT_RESOURCES_DIRCTORY) {
     const EpisodeUrl: EpisodeUrl = await findEpisodeUrl(episode_id);
     const { title } = EpisodeUrl || {};
     console.log(`start download ${title}`);
-    await downloadEpisodeByUrl(EpisodeUrl);
+    await downloadEpisodeByUrl(EpisodeUrl, output_dir);
     console.log(`${title}.mp3 download successfully.`);
 }
 
+async function downloadEpisodeByUrl(EpisodeUrl: EpisodeUrl, output_dir: string) {
+    const { title, url } = EpisodeUrl || {};
+    const res = await fetcher.download(url);
+    writeArrayBuffer(`${output_dir}/${title}.mp3`, res);
+}
+
+// search
 async function search(keyword: string, page: number = 1): Promise<Collection[] | null> {
     const collections: Collection[] = [];
     await searchByRecusively(keyword, page, collections);
@@ -107,7 +106,7 @@ async function searchByRecusively(keyword: string, page: number, result: Collect
     }
     if (notEmpty(array)) {
         const collection_ids = array
-            .filter((val: any) => val.data_type === 'content')
+            .filter((val: any) => val.data_type === 'content' && val.media_type_en === 'audio')
             .map((val: any) => {
                 const { id, title } = val || {};
                 return {

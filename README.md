@@ -14,17 +14,16 @@
 **搜索**
 >$ vistopia search <keyword>
 
-   ![search](./img/Img_search.jpg)
-
-**通过`collection id`获取`epsoide`列表**
+**通过`collection id`获取`episode`列表**
 >$ vistopia find <collection_id>
 
-   ![find](./img/img_find.jpg)
-
 **下载**
->$ vistopia download <collection_id>
 
-   ![download](./img/img_download.jpg)
+通过`collection_id`下载该节目下的**所有**单集
+>$ vistopia download -o <output_directory> <collection_id>
+
+下载**单集**
+> vistopia download -o <output_directory> -e <episode_id>
 
 **push to phone**
->$ vistopia push
+>$ vistopia push <resource_directory> <phone_directory>

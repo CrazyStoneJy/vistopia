@@ -1,5 +1,5 @@
 import { JSONValue } from "./net";
-import { existsSync, writeFileSync, appendFileSync } from 'fs';
+import { existsSync, writeFileSync, appendFileSync, mkdirSync } from 'fs';
 
 function write(path: string, data: JSONValue | string) {
     if (!path) {
@@ -11,9 +11,9 @@ function write(path: string, data: JSONValue | string) {
         data = JSON.stringify(data);
     }
     if (isExists) {
-        writeFileSync(path, data, { encoding: 'utf-8', flag: 'w' });
+        appendFileSync(path, data, { encoding: 'utf-8', flag: 'a' });
     } else {
-        appendFileSync(path, data, { encoding: 'utf-8', flag: 'w' });
+        writeFileSync(path, data, { encoding: 'utf-8', flag: 'w' });
     }
 }
 
@@ -21,12 +21,19 @@ function writeArrayBuffer(path: string, data: ArrayBuffer) {
     if (!path) {
         throw Error("path can not be empty.");
     }
+    // check directory exists whether or not.
+    const dir = path.substring(0, path.lastIndexOf('/'));
+    const has_dir = existsSync(dir);
+    if (!has_dir) {
+        mkdirSync(dir);
+    }
+
     // check file exists whether or not.
     const isExists = existsSync(path);
     if (isExists) {
-        writeFileSync(path, new Uint8Array(data), { encoding: 'utf-8', flag: 'w' });
+        appendFileSync(path, new Uint8Array(data), { encoding: 'utf-8', flag: 'a' });
     } else {
-        appendFileSync(path, new Uint8Array(data), { encoding: 'utf-8', flag: 'w' });
+        writeFileSync(path, new Uint8Array(data), { encoding: 'utf-8', flag: 'w' });
     }
 }
 
