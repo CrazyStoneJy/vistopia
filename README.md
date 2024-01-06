@@ -17,9 +17,6 @@
 #### 使用
 >$ npm link  
 
-   ![npm link success](./img/img_pm_link.jpg)
-
-
 ## 命令手册
 
 **搜索**
