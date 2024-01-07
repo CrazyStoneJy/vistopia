@@ -20,7 +20,7 @@
 ## 命令手册
 
 **搜索**
->$ vistopia search <keyword>
+>$ vistopia search <search_word>  
 
 **通过`collection id`获取`episode`列表**
 >$ vistopia find <collection_id>
@@ -33,6 +33,6 @@
 下载**单集**
 > vistopia download -o <output_directory> -e <episode_id>
 
-**push to phone**
+**push to phone**  
 需要下载**adb**
 >$ vistopia push <resource_directory> <phone_directory>
