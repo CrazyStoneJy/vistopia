@@ -34,4 +34,5 @@
 > vistopia download -o <output_directory> -e <episode_id>
 
 **push to phone**
+需要下载**adb**
 >$ vistopia push <resource_directory> <phone_directory>
