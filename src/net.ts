@@ -11,7 +11,7 @@ interface IRequest {
 class Fetcher implements IRequest {
 
     get(url: string, customConfig?: any): Promise<JSONValue> {
-        return this.request(url);
+        return this.request(url, customConfig = customConfig);
     }
 
     post(url: string, bodyJson: JSONValue): Promise<JSONValue> {

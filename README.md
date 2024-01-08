@@ -33,6 +33,6 @@
 下载**单集**
 > vistopia download -o <output_directory> -e <episode_id>
 
-**push to phone**  
-需要下载**adb**
+**将mp3传到手机端**  
+需要下载**adb**，[相关文档](https://developer.android.com/studio/command-line/adb?hl=zh-cn)  
 >$ vistopia push <resource_directory> <phone_directory>
