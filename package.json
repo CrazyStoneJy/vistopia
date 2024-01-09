@@ -14,7 +14,7 @@
     "test": "jest",
     "prepublishOnly": "npm run build",
     "build": "zsh ./scripts/build.zsh",
-    "chrome:build": "zsh ./chrome/scripts/build.zsh"
+    "build:chrome": "zsh ./chrome/scripts/build.zsh"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,8 @@
   "devDependencies": {
     "@babel/cli": "^7.23.4",
     "@babel/core": "^7.23.7",
+    "@babel/plugin-transform-modules-commonjs": "^7.23.3",
+    "@babel/preset-env": "^7.23.8",
     "@babel/preset-typescript": "^7.23.3",
     "@types/commander": "^2.12.2",
     "@types/jest": "^29.5.11",

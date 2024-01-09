@@ -7,15 +7,7 @@ rm -rf ./chrome/dist/
 mkdir ./chrome/dist/
 
 # compile typescript code
-# precompile api
-# tsc ./src/api.ts ./src/arrays.ts ./src/fs.ts ./src/logs.ts ./src/net.ts --module system --outfile index.js
-./node_modules/.bin/babel --out-file bundle.js ./src/api.ts ./src/arrays.ts ./src/fs.ts ./src/logs.ts ./src/net.ts
-# mv ./src/api.js ./src/arrays.js ./src/fs.js ./src/logs.js ./src/net.js ./chrome/dist/
-# echo 'compile api successfully.'
+babel ./src/api.ts ./src/arrays.ts ./src/fs.ts ./src/logs.ts ./src/net.ts --out-file ./chrome/dist/bundle.cjs
 
-# # compile chrome extension
-# tsc ./chrome/src/index.ts
-# mv ./chrome/src/index.js ./chrome/dist/
-# tsc
 
 echo 'build chrome extension suceessfully! 👌🏻'
