@@ -1,11 +1,21 @@
 set -e
-echo 'start chrome build 🔥'
+echo 'start build chrome extension 🔥'
+
+# echo 'delete chrome/dist/'
 rm -rf ./chrome/dist/
+# echo 'delete chrome/dist/ successfully.'
+mkdir ./chrome/dist/
 
 # compile typescript code
-# tsc -p ./tsconfig.json
-echo $PWD
-tsc ./src/api.ts ./src/arrays.ts ./src/fs.ts ./src/logs.ts ./src/net.ts --module commonjs --outDir ./chrome/dist/
-tsc ./chrome/src/index.ts --module commonjs --outDir ./dist
+# precompile api
+# tsc ./src/api.ts ./src/arrays.ts ./src/fs.ts ./src/logs.ts ./src/net.ts --module system --outfile index.js
+./node_modules/.bin/babel --out-file bundle.js ./src/api.ts ./src/arrays.ts ./src/fs.ts ./src/logs.ts ./src/net.ts
+# mv ./src/api.js ./src/arrays.js ./src/fs.js ./src/logs.js ./src/net.js ./chrome/dist/
+# echo 'compile api successfully.'
 
-echo 'build chrome extensions suceessfully! 👌🏻'
+# # compile chrome extension
+# tsc ./chrome/src/index.ts
+# mv ./chrome/src/index.js ./chrome/dist/
+# tsc
+
+echo 'build chrome extension suceessfully! 👌🏻'
