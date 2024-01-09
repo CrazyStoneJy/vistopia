@@ -13,7 +13,8 @@
   "scripts": {
     "test": "jest",
     "prepublishOnly": "npm run build",
-    "build": "zsh ./scripts/build.zsh"
+    "build": "zsh ./scripts/build.zsh",
+    "chrome:build": "zsh ./chrome/scripts/build.zsh"
   },
   "repository": {
     "type": "git",
