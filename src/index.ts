@@ -1,5 +1,5 @@
-import { search } from '../../src/api';
-import { log } from '../../src/logs';
+import { search } from './api';
+import { log } from './logs';
 // @ts-ignore
 function createInput(parent: HTMLElement): void {
     const container = document.createElement('div');

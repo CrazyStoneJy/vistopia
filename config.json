@@ -1,0 +1,43 @@
+{
+    "browser": {
+        "version": "2.0.2",
+        "compilerOptions": {
+            "lib": ["es5", "es2015.promise", "dom", "es2015"],
+            "target": "es5",
+            "typeRoots": [
+              "node_modules/@types"
+            ],
+            "outDir": "./dist/",
+            "module": "es2015",
+            "moduleResolution": "node",
+            "emitDecoratorMetadata": true,
+            "experimentalDecorators": true,
+            "allowSyntheticDefaultImports": true,
+            "declaration": false,
+            "sourceMap": true
+        },
+        "include": [
+            "./src/**/*"
+        ],
+        "exclude": [
+            "node_modules"
+        ]
+    },
+    "node": {
+        "compilerOptions": {
+            "module": "commonjs",
+            "noImplicitAny": true,
+            "removeComments": true,
+            "preserveConstEnums": true,
+            "outDir": "./dist/",
+            "sourceMap": true
+        },
+        "include": [
+            "./src/**/*"
+        ],
+        "exclude": [
+            "**/*.spec.ts",
+            "**/*.d.ts"
+        ]
+    }
+}
