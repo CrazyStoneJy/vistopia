@@ -7,7 +7,8 @@ rm -rf ./chrome/dist/
 mkdir ./chrome/dist/
 
 # compile typescript code
-babel ./src/api.ts ./src/arrays.ts ./src/fs.ts ./src/logs.ts ./src/net.ts --out-file ./chrome/dist/bundle.cjs
+tsc -p ./tsconfig.json
+# babel ./src/api.ts ./src/arrays.ts ./src/fs.ts ./src/logs.ts ./src/net.ts chrome/src/index.ts --out-file ./dist/bundle.js
 
 
 echo 'build chrome extension suceessfully! 👌🏻'
