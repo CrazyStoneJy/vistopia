@@ -12,6 +12,7 @@
     ],
     "exclude": [
         "**/*.spec.ts",
-        "**/*.d.ts"
+        "**/*.d.ts",
+        "node_modules"
     ]
 }

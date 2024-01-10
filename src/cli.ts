@@ -2,8 +2,7 @@
 
 import { Command } from 'commander';
 import { exec } from 'child_process';
-import { DEFAULT_RESOURCES_DIRCTORY, downloadEpisode, downloadEpisodes, findEpisodes, search } from './api';
-import { log } from './logs';
+import { downloadEpisode, downloadEpisodes, findEpisodes, search, log } from 'vistopia-api';
 
 const program = new Command();
 
@@ -32,7 +31,7 @@ program.command('download')
     .option('-o --output <output directory>')
     .action((options) => {
         // download one episode
-        const { output = DEFAULT_RESOURCES_DIRCTORY, episode } = options;
+        const { output = './resources', episode } = options;
         if (output) {
             // output_dir = ;
             log('output: ', output);
