@@ -3,6 +3,7 @@
 import { Command } from 'commander';
 import { exec } from 'child_process';
 import { downloadEpisode, downloadEpisodes, findEpisodes, search, log } from 'vistopia-api';
+import { existsSync } from 'node:fs';
 
 const program = new Command();
 
@@ -27,21 +28,29 @@ program.command('find')
 
 program.command('download')
     .description('download audio collection by collection id.')
+    .argument('<collection_id>', 'collection id')
     .option('-e, --episode <episode_id>')
     .option('-o --output <output directory>')
-    .action((options) => {
+    .action(async (collection_id, options) => {
         // download one episode
-        const { output = './resources', episode } = options;
-        if (output) {
-            // output_dir = ;
-            log('output: ', output);
+        let { output, episode } = options;
+        if (!output) {
+            output = await cur_dir();
+        }
+        if (!existsSync(output)) {
+            log(`${output} is not exists.`);
+            return;
         }
         if (episode) {
             log('episode: ', episode);
             downloadEpisode(episode, output);
             return;
         }
-        downloadEpisodes(getLastArg(), output);
+        if (!collection_id) {
+            log(`${collection_id} can not be null.`);
+            return;
+        }
+        downloadEpisodes(collection_id, output);
     });
 
 program.command('push')
@@ -68,8 +77,16 @@ program.command('push')
 
 program.parse(process.argv);
 
-
-function getLastArg(): string {
-    const arg_len = program.args.length;
-    return program.args[arg_len - 1];
+async function cur_dir(): Promise<string> {
+    return new Promise((resolve, reject) => {
+        exec("echo ${PWD}", (err, stdout, stderr) => {
+            if (err) {
+                // @ts-ignore
+                log(`stderr: ${stderr}`);
+                reject(err);
+                return;
+            }
+            resolve(stdout.trim());
+        });
+    });
 }
