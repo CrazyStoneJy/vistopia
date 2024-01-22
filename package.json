@@ -1,6 +1,6 @@
 {
   "name": "vistopia",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "vistopia command line",
   "bin": {
     "vistopia": "./bin/vistopia.mjs"
