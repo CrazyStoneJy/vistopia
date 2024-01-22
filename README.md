@@ -1,7 +1,7 @@
 ## 看理想音频抓取工具
 
 ## 直接安装cli使用
->$ npm i vistopia
+>$ npm i -g vistopia
 
 ## 下载源码使用
 
