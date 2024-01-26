@@ -8,15 +8,15 @@ import { existsSync } from 'node:fs';
 const program = new Command();
 
 program.name('vispotia')
-    .description('CLI to fetch vistopia audio utilities')
+    .description('CLI to fetch vistopia audio')
     .version(`${require('../package.json').version}`, '-v --version');
     
 program.command('search')
     .description('search collection id by keyword')
-    .argument('<keyword>', 'show start info')
-    .action((keyword, options) => {
-        console.log('keyword:', keyword);
-        search(keyword);
+    .argument('<search_word>', 'search word')
+    .action((search_word, options) => {
+        console.log('search_word:', search_word);
+        search(search_word);
     });
 
 program.command('find')
